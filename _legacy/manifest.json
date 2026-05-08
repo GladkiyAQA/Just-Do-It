@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Just Do It!",
+  "version": "0.1.3",
+  "description": "Чек-лист + Pomodoro таймер для продуктивной работы",
+  "action": {
+    "default_title": "Just Do It!"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "windows",
+    "alarms",
+    "offscreen",
+    "sidePanel"
+  ]
+}

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variant B — Neo Brutalism</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e8e4d9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .label {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0A0A0A;
+      color: #FFFDF5;
+      padding: 6px 16px;
+      border-radius: 0;
+      font-size: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 2px solid #0A0A0A;
+    }
+
+    /* ── POPUP SHELL ── */
+    .popup {
+      width: 360px;
+      height: 600px;
+      background: #FFFDF5;
+      border: 3px solid #0A0A0A;
+      border-radius: 0;
+      box-shadow: 8px 8px 0px #0A0A0A;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: #0A0A0A;
+      flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .logo {
+      width: 30px; height: 30px;
+      background: #FFE147;
+      border: 2px solid #FFE147;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo svg { width: 16px; height: 16px; color: #0A0A0A; }
+    .app-name {
+      font-size: 16px; font-weight: 800;
+      color: #FFFDF5;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .topbar-right { display: flex; gap: 6px; }
+    .icon-btn {
+      width: 30px; height: 30px;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: rgba(255,255,255,0.6);
+      transition: all 0.1s;
+    }
+    .icon-btn:hover { background: #FFE147; border-color: #FFE147; color: #0A0A0A; }
+    .icon-btn svg { width: 14px; height: 14px; }
+
+    /* ── SCROLL AREA ── */
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 14px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .scroll-area::-webkit-scrollbar { width: 4px; }
+    .scroll-area::-webkit-scrollbar-thumb { background: #0A0A0A; }
+
+    /* ── BRUTAL CARD ── */
+    .card {
+      background: #FFFFFF;
+      border: 3px solid #0A0A0A;
+      padding: 16px;
+      position: relative;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; right: -6px;
+      width: 100%; height: 100%;
+      background: #0A0A0A;
+      z-index: -1;
+    }
+
+    /* ── TIMER CARD ── */
+    .timer-card { background: #FFE147; }
+    .timer-card::after { background: #FF4D4D; }
+
+    .mode-tabs {
+      display: flex; gap: 0;
+      margin-bottom: 16px;
+      border: 2px solid #0A0A0A;
+    }
+    .mode-tab {
+      flex: 1; padding: 8px 4px;
+      font-size: 11px; font-weight: 700;
+      color: #0A0A0A;
+      cursor: pointer;
+      border: none; border-right: 2px solid #0A0A0A;
+      background: transparent;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.1s;
+    }
+    .mode-tab:last-child { border-right: none; }
+    .mode-tab.active { background: #0A0A0A; color: #FFE147; }
+    .mode-tab:not(.active):hover { background: rgba(0,0,0,0.08); }
+
+    .timer-main {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .timer-digits {
+      font-size: 72px; font-weight: 800;
+      color: #0A0A0A;
+      letter-spacing: -4px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .timer-sub {
+      font-size: 11px; font-weight: 700;
+      color: rgba(0,0,0,0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 6px;
+    }
+
+    /* Session ticks */
+    .session-ticks {
+      display: flex; gap: 4px; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .tick {
+      width: 24px; height: 6px;
+      background: rgba(0,0,0,0.15);
+      border: 1.5px solid #0A0A0A;
+    }
+    .tick.done { background: #0A0A0A; }
+    .tick.current { background: #FF4D4D; }
+
+    /* Кнопка старт */
+    .btn-start {
+      width: 100%;
+      padding: 15px;
+      background: #FF4D4D;
+      border: 3px solid #0A0A0A;
+      color: #FFFDF5;
+      font-size: 16px; font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      position: relative;
+      transition: all 0.1s;
+    }
+    .btn-start:hover { transform: translate(2px, 2px); }
+    .btn-start-wrap {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .btn-start-shadow {
+      position: absolute;
+      bottom: -4px; right: -4px;
+      width: 100%; height: 100%;
+      background: #0A0A0A;
+      z-index: -1;
+    }
+    .btn-start svg { width: 16px; height: 16px; }
+
+    .timer-secondary {
+      display: flex; justify-content: center; gap: 8px;
+      margin-top: 12px;
+    }
+    .btn-square {
+      padding: 8px 20px;
+      background: transparent;
+      border: 2px solid #0A0A0A;
+      color: #0A0A0A;
+      font-family: inherit;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.1s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .btn-square:hover { background: #0A0A0A; color: #FFE147; }
+    .btn-square svg { width: 13px; height: 13px; }
+
+    /* ── CURRENT TASK ── */
+    .card-label {
+      font-size: 10px; font-weight: 800;
+      color: rgba(0,0,0,0.4);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .card-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .link-btn {
+      font-size: 11px; font-weight: 700;
+      color: #FFFDF5; background: #0A0A0A; border: none;
+      cursor: pointer; font-family: inherit;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.1s;
+      flex-shrink: 0;
+    }
+    .link-btn:hover { background: #FF4D4D; }
+    .current-task-text {
+      font-size: 14px; font-weight: 600;
+      color: #0A0A0A;
+      line-height: 1.4;
+    }
+    .progress-bar-wrap {
+      margin-top: 10px;
+      height: 6px; background: rgba(0,0,0,0.1);
+      border: 1.5px solid #0A0A0A;
+    }
+    .progress-bar-fill {
+      height: 100%; width: 40%;
+      background: #FF4D4D;
+    }
+    .progress-label {
+      font-size: 10px; font-weight: 700;
+      color: rgba(0,0,0,0.5);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── TASK LIST ── */
+    .tasks-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .tasks-meta { display: flex; align-items: center; gap: 8px; }
+    .badge {
+      background: #0A0A0A;
+      color: #FFE147;
+      font-size: 11px; font-weight: 800;
+      padding: 1px 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .btn-add {
+      width: 30px; height: 30px;
+      background: #0A0A0A;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #FFE147;
+      font-size: 20px; font-weight: 300;
+      transition: all 0.1s;
+    }
+    .btn-add:hover { background: #FF4D4D; }
+
+    .task-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 8px;
+      border-bottom: 2px solid #0A0A0A;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .task-item:last-child { border-bottom: none; }
+    .task-item:hover { background: rgba(255,225,71,0.2); }
+
+    .task-check {
+      width: 18px; height: 18px;
+      border: 2.5px solid #0A0A0A;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      transition: all 0.15s;
+    }
+    .task-check.done { background: #0A0A0A; }
+    .task-check.done svg { width: 10px; height: 10px; color: #FFE147; }
+    .task-name { font-size: 13px; font-weight: 600; color: #0A0A0A; flex: 1; line-height: 1.4; }
+    .task-name.done-text { text-decoration: line-through; color: rgba(0,0,0,0.35); }
+    .task-sub { font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      display: flex;
+      background: #0A0A0A;
+      border-top: 3px solid #0A0A0A;
+      padding: 10px 8px 12px;
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: none; background: transparent;
+      color: rgba(255,255,255,0.35);
+      padding: 6px 0;
+      transition: all 0.1s;
+    }
+    .nav-btn.active { color: #FFE147; }
+    .nav-btn:not(.active):hover { color: rgba(255,255,255,0.7); }
+    .nav-btn svg { width: 22px; height: 22px; }
+    .nav-active-wrap {
+      background: #FFE147;
+      padding: 6px 20px;
+    }
+    .nav-active-wrap svg { width: 22px; height: 22px; color: #0A0A0A; }
+  </style>
+</head>
+<body>
+  <div class="label">Variant B — Neo Brutalism</div>
+
+  <div class="popup">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <span class="app-name">Just Do It!</span>
+      </div>
+      <div class="topbar-right">
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </div>
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scroll content -->
+    <div class="scroll-area">
+
+      <!-- Timer card -->
+      <div class="card timer-card">
+        <div class="mode-tabs">
+          <button class="mode-tab active">Работа</button>
+          <button class="mode-tab">Короткий</button>
+          <button class="mode-tab">Длинный</button>
+        </div>
+
+        <div class="timer-main">
+          <div class="timer-digits">18:42</div>
+          <div class="timer-sub">Фокус на задаче</div>
+        </div>
+
+        <div class="session-ticks">
+          <div class="tick done"></div>
+          <div class="tick done"></div>
+          <div class="tick current"></div>
+          <div class="tick"></div>
+        </div>
+
+        <div class="btn-start-wrap">
+          <button class="btn-start">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+            Старт
+          </button>
+          <div class="btn-start-shadow"></div>
+        </div>
+
+        <div class="timer-secondary">
+          <button class="btn-square">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+            </svg>
+            Пауза
+          </button>
+          <button class="btn-square">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+            </svg>
+            Сброс
+          </button>
+        </div>
+      </div>
+
+      <!-- Current task -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-label">Текущая задача</div>
+            <div class="current-task-text">Разработать новый дизайн Chrome Extension</div>
+          </div>
+          <button class="link-btn">→ Сменить</button>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill"></div>
+        </div>
+        <div class="progress-label">2 из 5 подпунктов</div>
+      </div>
+
+      <!-- Task list -->
+      <div class="card">
+        <div class="tasks-header">
+          <div class="tasks-meta">
+            <div class="card-label" style="margin-bottom:0">Сегодня</div>
+            <div class="badge">4</div>
+          </div>
+          <div class="btn-add">+</div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-check done">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <div style="flex:1">
+            <div class="task-name done-text">Проанализировать проект</div>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-check done">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <div style="flex:1">
+            <div class="task-name done-text">Составить архитектурный отчёт</div>
+          </div>
+        </div>
+
+        <div class="task-item" style="background: rgba(255,77,77,0.06)">
+          <div class="task-check"></div>
+          <div style="flex:1">
+            <div class="task-name">Разработать 3 варианта дизайна</div>
+            <div class="task-sub">2 / 5 готово</div>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div style="flex:1">
+            <div class="task-name">Написать README</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active">
+        <div class="nav-active-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+      </button>
+      <button class="nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M18 20V10M12 20V4M6 20v-6"/>
+        </svg>
+      </button>
+      <button class="nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</body>
+</html>

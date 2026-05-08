@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Настройки — Just Do It!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Caveat:wght@500;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+
+  <div class="settings-page">
+
+    <header class="settings-header">
+      <div class="header-left">
+        <button class="back-btn" id="btnBack" title="Назад">←</button>
+        <div class="app-icon-wrap">✓</div>
+        <span class="app-title">Just Do It!</span>
+      </div>
+      <h1 class="settings-heading">Настройки</h1>
+    </header>
+
+    <main class="settings-main">
+
+      <!-- ── Тема оформления ── -->
+      <section class="settings-section">
+        <div class="section-label">Тема оформления</div>
+        <p class="section-desc">Внешний вид приложения</p>
+
+        <div class="theme-grid">
+
+          <label class="theme-card" data-value="light">
+            <input type="radio" name="themeChoice" value="light" />
+            <div class="theme-preview theme-preview--light">
+              <div class="tp-bar"></div>
+              <div class="tp-card"><div class="tp-dot"></div></div>
+              <div class="tp-card tp-card--sm"></div>
+            </div>
+            <span class="theme-name">Основная</span>
+            <div class="theme-radio-dot"></div>
+          </label>
+
+          <label class="theme-card" data-value="dark">
+            <input type="radio" name="themeChoice" value="dark" />
+            <div class="theme-preview theme-preview--dark">
+              <div class="tp-bar"></div>
+              <div class="tp-card"><div class="tp-dot"></div></div>
+              <div class="tp-card tp-card--sm"></div>
+            </div>
+            <span class="theme-name">Тёмная</span>
+            <div class="theme-radio-dot"></div>
+          </label>
+
+          <label class="theme-card" data-value="crystal">
+            <input type="radio" name="themeChoice" value="crystal" />
+            <div class="theme-preview theme-preview--crystal">
+              <div class="tp-bar"></div>
+              <div class="tp-card"><div class="tp-dot"></div></div>
+              <div class="tp-card tp-card--sm"></div>
+            </div>
+            <span class="theme-name">Кристалл</span>
+            <div class="theme-radio-dot"></div>
+          </label>
+
+          <label class="theme-card" data-value="notion">
+            <input type="radio" name="themeChoice" value="notion" />
+            <div class="theme-preview theme-preview--notion">
+              <div class="tp-bar"></div>
+              <div class="tp-card"><div class="tp-dot"></div></div>
+              <div class="tp-card tp-card--sm"></div>
+            </div>
+            <span class="theme-name">Notion</span>
+            <div class="theme-radio-dot"></div>
+          </label>
+
+          <label class="theme-card" data-value="paper">
+            <input type="radio" name="themeChoice" value="paper" />
+            <div class="theme-preview theme-preview--paper">
+              <div class="tp-bar"></div>
+              <div class="tp-card"><div class="tp-dot"></div></div>
+              <div class="tp-card tp-card--sm"></div>
+            </div>
+            <span class="theme-name">Бумага</span>
+            <div class="theme-radio-dot"></div>
+          </label>
+
+          <!-- Crystal Hue Picker — visible only when Crystal theme is selected -->
+          <div class="crystal-hue-section" id="crystalHueSection">
+            <div class="crystal-hue-divider"></div>
+            <p class="section-desc" style="margin-bottom:10px">Выберите оттенок кристалла</p>
+            <div class="crystal-hue-row">
+              <canvas id="hueWheel" width="120" height="120"></canvas>
+              <div class="crystal-hue-info">
+                <div class="crystal-hue-preview" id="crystalHuePreview"></div>
+                <span class="crystal-hue-value" id="crystalHueValue">160°</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── Режим отображения ── -->
+      <section class="settings-section">
+        <div class="section-label">Режим отображения</div>
+        <p class="section-desc">Как открывается расширение при клике на иконку</p>
+
+        <div class="mode-list">
+
+          <label class="mode-item" data-value="popup">
+            <input type="radio" name="uiMode" value="popup" />
+            <div class="mode-item-body">
+              <span class="mode-icon">🪟</span>
+              <div class="mode-text">
+                <span class="mode-name">Popup</span>
+                <span class="mode-desc">Стандартное всплывающее окно</span>
+              </div>
+              <div class="mode-radio-dot"></div>
+            </div>
+          </label>
+
+          <label class="mode-item" data-value="sidebar">
+            <input type="radio" name="uiMode" value="sidebar" />
+            <div class="mode-item-body">
+              <span class="mode-icon">📌</span>
+              <div class="mode-text">
+                <span class="mode-name">Боковая панель</span>
+                <span class="mode-desc">Открывается сбоку страницы</span>
+              </div>
+              <div class="mode-radio-dot"></div>
+            </div>
+          </label>
+
+
+        </div>
+      </section>
+
+      <!-- ── Режим таймера ── -->
+      <section class="settings-section">
+        <div class="section-label">Режим таймера</div>
+
+        <label class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-name">Автоматический режим</span>
+            <span class="toggle-desc">Работа → перерыв → работа без остановок</span>
+          </div>
+          <div class="toggle-wrap">
+            <input type="checkbox" id="autoMode" class="toggle-input" />
+            <span class="toggle-track"></span>
+          </div>
+        </label>
+      </section>
+
+      <!-- ── Pomodoro таймер ── -->
+      <section class="settings-section">
+        <div class="section-label">Pomodoro таймер</div>
+        <p class="section-desc">Длительность сессий работы и перерывов (мм:сс)</p>
+
+        <div class="timer-duration-list">
+          <div class="duration-row">
+            <span class="duration-label">🍅 Работа</span>
+            <div class="duration-input-wrap">
+              <input type="number" id="durPomM" min="0" max="99" value="25">
+              <span class="duration-colon">:</span>
+              <input type="number" id="durPomS" min="0" max="59" value="0">
+            </div>
+          </div>
+          <div class="duration-row">
+            <span class="duration-label">☕ Короткий перерыв</span>
+            <div class="duration-input-wrap">
+              <input type="number" id="durShortM" min="0" max="99" value="5">
+              <span class="duration-colon">:</span>
+              <input type="number" id="durShortS" min="0" max="59" value="0">
+            </div>
+          </div>
+          <div class="duration-row">
+            <span class="duration-label">🛋 Длинный перерыв</span>
+            <div class="duration-input-wrap">
+              <input type="number" id="durLongM" min="0" max="99" value="15">
+              <span class="duration-colon">:</span>
+              <input type="number" id="durLongS" min="0" max="59" value="0">
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <div class="saved-toast" id="savedToast">Сохранено ✓</div>
+
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

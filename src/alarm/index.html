@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pomodoro завершён</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      /* Alarm window uses an image-slideshow backdrop in ALL themes — the
+         dark body fallback shows under the images while they load. */
+      body.theme-crystal,
+      body.theme-notion,
+      body.theme-dark { background: #0a0a0c !important; }
+
+      /* Crystal: translucent glass card so the backdrop image shows through. */
+      body.theme-crystal .glass {
+        background: rgba(255, 255, 255, 0.22) !important;
+        backdrop-filter: blur(14px) saturate(1.25) !important;
+        -webkit-backdrop-filter: blur(14px) saturate(1.25) !important;
+        border-color: rgba(255, 255, 255, 0.45) !important;
+      }
+      /* Notion: solid white card on top of the image — like the rest of the
+         Notion UI, no glass effect. */
+
+      /* Dark Minimal: near-opaque graphite card with a faint blur so the image
+         still hints through the edges. Backdrop images are unchanged. */
+      body.theme-dark .glass {
+        background: rgba(20, 20, 24, 0.86) !important;
+        backdrop-filter: blur(18px) saturate(1.1) !important;
+        -webkit-backdrop-filter: blur(18px) saturate(1.1) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+      }
+      body.theme-dark .glass-soft {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(255, 255, 255, 0.10) !important;
+        color: #ededee !important;
+      }
+      /* Progress bar track in dark alarm window. */
+      body.theme-dark .bg-white\/30 { background: rgba(255, 255, 255, 0.12) !important; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.jsx"></script>
+  </body>
+</html>

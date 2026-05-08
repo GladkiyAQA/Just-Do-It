@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variant C — Bento Soft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #E5E5EA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    .label {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1C1C1E;
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── POPUP SHELL ── */
+    .popup {
+      width: 360px;
+      height: 600px;
+      background: #F2F2F7;
+      border-radius: 22px;
+      box-shadow: 0 32px 64px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px 12px;
+      background: rgba(242,242,247,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 0.5px solid rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 9px; }
+    .logo {
+      width: 28px; height: 28px;
+      background: #5856D6;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(88,86,214,0.35);
+    }
+    .logo svg { width: 14px; height: 14px; color: #fff; }
+    .app-name {
+      font-size: 15px; font-weight: 700;
+      color: #1C1C1E;
+      letter-spacing: -0.3px;
+    }
+    .topbar-right { display: flex; gap: 2px; }
+    .icon-btn {
+      width: 30px; height: 30px;
+      background: rgba(120,120,128,0.12);
+      border: none; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #8E8E93;
+      transition: all 0.15s;
+    }
+    .icon-btn:hover { background: rgba(88,86,214,0.12); color: #5856D6; }
+    .icon-btn svg { width: 15px; height: 15px; }
+
+    /* ── SCROLL AREA ── */
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .scroll-area::-webkit-scrollbar { width: 3px; }
+    .scroll-area::-webkit-scrollbar-thumb { background: rgba(88,86,214,0.3); border-radius: 2px; }
+
+    /* ── BENTO GRID CARD ── */
+    .card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.06);
+      padding: 14px 14px;
+      overflow: hidden;
+    }
+
+    /* ── BENTO 2-COL ROW ── */
+    .bento-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* ── TIMER CARD (full width) ── */
+    .timer-card {
+      display: flex;
+      flex-direction: column;
+      background: #5856D6;
+      color: #fff;
+    }
+
+    .mode-tabs {
+      display: flex; gap: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 3px;
+      margin-bottom: 14px;
+    }
+    .mode-tab {
+      flex: 1; padding: 6px 4px;
+      border-radius: 8px;
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      border: none; background: transparent;
+      font-family: inherit;
+      transition: all 0.2s;
+      letter-spacing: -0.1px;
+    }
+    .mode-tab.active {
+      background: #fff;
+      color: #5856D6;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    /* Arc timer */
+    .timer-arc-wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .arc-svg { flex-shrink: 0; }
+    .arc-bg { fill: none; stroke: rgba(255,255,255,0.2); stroke-width: 7; }
+    .arc-fill {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-dasharray: 283;
+      stroke-dashoffset: 70;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.5));
+      transform: rotate(-90deg);
+      transform-origin: center;
+    }
+    .arc-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .arc-container {
+      position: relative;
+      width: 100px; height: 100px;
+      flex-shrink: 0;
+    }
+
+    .timer-right { flex: 1; }
+    .timer-digits-sm {
+      font-size: 46px; font-weight: 800;
+      color: #fff;
+      letter-spacing: -3px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .timer-label-sm {
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+    .session-pills {
+      display: flex; gap: 5px; margin-top: 10px;
+    }
+    .spill {
+      width: 22px; height: 5px; border-radius: 3px;
+      background: rgba(255,255,255,0.25);
+    }
+    .spill.done { background: #fff; }
+    .spill.current { background: rgba(255,255,255,0.6); }
+
+    /* Buttons */
+    .btn-start {
+      width: 100%;
+      padding: 12px;
+      background: #fff;
+      border: none; border-radius: 12px;
+      color: #5856D6;
+      font-size: 14px; font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      transition: all 0.2s;
+      letter-spacing: -0.2px;
+    }
+    .btn-start:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+    .btn-start svg { width: 14px; height: 14px; }
+
+    .timer-secondary-row {
+      display: flex; gap: 8px; margin-top: 8px;
+    }
+    .btn-outline-white {
+      flex: 1; padding: 9px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      color: rgba(255,255,255,0.8);
+      font-size: 12px; font-weight: 600;
+      font-family: inherit; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.25); }
+    .btn-outline-white svg { width: 13px; height: 13px; }
+
+    /* ── MINI BENTO: Current task + Mode indicator ── */
+    .bento-task {
+      background: #fff;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .bento-mode {
+      background: #34C759;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    .mini-label {
+      font-size: 10px; font-weight: 600;
+      color: #8E8E93;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+    .mini-label-white {
+      font-size: 10px; font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+    .mini-task-text {
+      font-size: 12px; font-weight: 600;
+      color: #1C1C1E;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .mini-change {
+      font-size: 11px; font-weight: 600;
+      color: #5856D6; background: none; border: none;
+      cursor: pointer; font-family: inherit;
+      padding: 0; margin-top: 6px;
+      text-align: left;
+    }
+    .mode-big-text {
+      font-size: 28px; font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .mode-sub {
+      font-size: 11px; font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      margin-top: 4px;
+    }
+    .mode-toggle {
+      display: flex; align-items: center; gap: 4px;
+      margin-top: 8px;
+    }
+    .toggle-track {
+      width: 32px; height: 18px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 9px;
+      position: relative;
+    }
+    .toggle-knob {
+      position: absolute;
+      width: 14px; height: 14px;
+      background: #fff;
+      border-radius: 50%;
+      top: 2px; right: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .toggle-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.8); }
+
+    /* ── TASKS ── */
+    .tasks-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 10px;
+    }
+    .tasks-title {
+      font-size: 13px; font-weight: 700;
+      color: #1C1C1E;
+    }
+    .tasks-meta-row { display: flex; align-items: center; gap: 6px; }
+    .badge {
+      background: rgba(88,86,214,0.12);
+      color: #5856D6;
+      font-size: 11px; font-weight: 700;
+      padding: 2px 8px; border-radius: 20px;
+    }
+    .btn-add {
+      width: 26px; height: 26px;
+      background: rgba(88,86,214,0.1);
+      border: none; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #5856D6;
+      font-size: 18px; font-weight: 300;
+      transition: all 0.15s;
+    }
+    .btn-add:hover { background: #5856D6; color: #fff; }
+
+    .task-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .task-item:hover { background: #F2F2F7; }
+    .task-check {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1.5px solid #C7C7CC;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .task-check.done {
+      background: #5856D6;
+      border-color: #5856D6;
+    }
+    .task-check.done svg { width: 10px; height: 10px; color: #fff; }
+    .task-name { font-size: 13px; font-weight: 500; color: #1C1C1E; flex: 1; line-height: 1.4; }
+    .task-name.done-text { text-decoration: line-through; color: #C7C7CC; }
+    .task-sub { font-size: 11px; color: #8E8E93; margin-top: 1px; }
+    .task-divider { height: 0.5px; background: rgba(0,0,0,0.07); margin: 0 6px; }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      display: flex;
+      background: rgba(242,242,247,0.9);
+      border-top: 0.5px solid rgba(0,0,0,0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 10px 8px 14px;
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      cursor: pointer; border: none; background: transparent;
+      color: #8E8E93;
+      font-size: 9px; font-weight: 600;
+      font-family: inherit;
+      padding: 4px 0;
+      border-radius: 10px;
+      transition: all 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .nav-btn.active { color: #5856D6; }
+    .nav-btn svg { width: 22px; height: 22px; }
+    .nav-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: #5856D6;
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="label">Variant C — Bento Soft (Apple-style)</div>
+
+  <div class="popup">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <span class="app-name">Just Do It!</span>
+      </div>
+      <div class="topbar-right">
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </div>
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scroll content -->
+    <div class="scroll-area">
+
+      <!-- Timer card (full width) -->
+      <div class="card timer-card">
+        <div class="mode-tabs">
+          <button class="mode-tab active">Работа</button>
+          <button class="mode-tab">Короткий</button>
+          <button class="mode-tab">Длинный</button>
+        </div>
+
+        <div class="timer-arc-wrap">
+          <div class="arc-container">
+            <svg class="arc-svg" width="100" height="100" viewBox="0 0 100 100">
+              <circle class="arc-bg" cx="50" cy="50" r="45"/>
+              <circle class="arc-fill" cx="50" cy="50" r="45"/>
+            </svg>
+            <div class="arc-center" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div style="font-size:9px;font-weight:600;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">75%</div>
+            </div>
+          </div>
+          <div class="timer-right">
+            <div class="timer-digits-sm">18:42</div>
+            <div class="timer-label-sm">Фокус на задаче</div>
+            <div class="session-pills">
+              <div class="spill done"></div>
+              <div class="spill done"></div>
+              <div class="spill current"></div>
+              <div class="spill"></div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-start">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Старт
+        </button>
+        <div class="timer-secondary-row">
+          <button class="btn-outline-white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+            </svg>
+            Пауза
+          </button>
+          <button class="btn-outline-white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+            </svg>
+            Сброс
+          </button>
+        </div>
+      </div>
+
+      <!-- Bento row: task + mode -->
+      <div class="bento-row">
+        <div class="card bento-task" style="min-height: 100px;">
+          <div class="mini-label">Задача</div>
+          <div class="mini-task-text">Разработать дизайн Extension</div>
+          <button class="mini-change">Изменить →</button>
+        </div>
+        <div class="card bento-mode" style="min-height: 100px;">
+          <div class="mini-label-white">Режим</div>
+          <div class="mode-big-text">AUTO</div>
+          <div class="mode-toggle">
+            <div class="toggle-track"><div class="toggle-knob"></div></div>
+            <span class="toggle-label">Авто</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task list -->
+      <div class="card">
+        <div class="tasks-header">
+          <div class="tasks-title">Сегодня</div>
+          <div class="tasks-meta-row">
+            <span class="badge">4</span>
+            <div class="btn-add">+</div>
+          </div>
+        </div>
+
+        <div class="task-item">
+          <div class="task-check done">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <div style="flex:1">
+            <div class="task-name done-text">Проанализировать текущий проект</div>
+          </div>
+        </div>
+        <div class="task-divider"></div>
+
+        <div class="task-item">
+          <div class="task-check done">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <div style="flex:1">
+            <div class="task-name done-text">Составить архитектурный отчёт</div>
+          </div>
+        </div>
+        <div class="task-divider"></div>
+
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div style="flex:1">
+            <div class="task-name">Разработать 3 варианта дизайна</div>
+            <div class="task-sub">2 из 5 подпунктов</div>
+          </div>
+        </div>
+        <div class="task-divider"></div>
+
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div style="flex:1">
+            <div class="task-name">Написать README документацию</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <div class="nav-dot"></div>
+      </button>
+      <button class="nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 20V10M12 20V4M6 20v-6"/>
+        </svg>
+      </button>
+      <button class="nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</body>
+</html>

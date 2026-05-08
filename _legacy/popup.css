@@ -1,0 +1,1659 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Светлая тема (по умолчанию) ── */
+:root {
+  --crystal-hue: 160;
+  --bg: #f0f3fb;
+  --card: #ffffff;
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  --accent: #6C5CE7;
+  --accent-light: rgba(108, 92, 231, 0.10);
+  --accent-glow: rgba(108, 92, 231, 0.28);
+  --text: #1e293b;
+  --text-muted: #94a3b8;
+  --text-done: #c8d2df;
+  --border: rgba(0, 0, 0, 0.07);
+  --sub-bg: #f8fafc;
+  --handle: #cbd5e1;
+  --delete: #cbd5e1;
+  --nav-bg: #ffffff;
+  --icon-btn-hover: rgba(108, 92, 231, 0.08);
+}
+
+/* ── Тёмная тема ── */
+body.dark {
+  --bg: #0f1117;
+  --card: #1a1d2e;
+  --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  --accent: #a78bfa;
+  --accent-light: rgba(167, 139, 250, 0.12);
+  --accent-glow: rgba(167, 139, 250, 0.3);
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --text-done: #334155;
+  --border: rgba(255, 255, 255, 0.08);
+  --sub-bg: rgba(255, 255, 255, 0.03);
+  --handle: #475569;
+  --delete: #475569;
+  --nav-bg: #1a1d2e;
+  --icon-btn-hover: rgba(167, 139, 250, 0.1);
+}
+
+/* ── Тема Notion ── */
+body.notion {
+  --bg: #f7f7f5;
+  --card: #ffffff;
+  --card-shadow: 0 1px 0 rgba(55, 53, 47, 0.09), 0 0 0 1px rgba(55, 53, 47, 0.07);
+  --accent: #2383E2;
+  --accent-light: rgba(35, 131, 226, 0.08);
+  --accent-glow: rgba(35, 131, 226, 0.22);
+  --text: #37352f;
+  --text-muted: #9b9a97;
+  --text-done: #c7c7c5;
+  --border: #e9e9e7;
+  --sub-bg: #f1f1ef;
+  --handle: #c7c7c5;
+  --delete: #c7c7c5;
+  --nav-bg: #ffffff;
+  --icon-btn-hover: rgba(35, 131, 226, 0.07);
+
+  background: #f7f7f5;
+}
+
+body.notion .topbar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e9e9e7;
+  box-shadow: none;
+}
+
+body.notion .card {
+  background: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid #e9e9e7;
+  box-shadow: 0 1px 2px rgba(55, 53, 47, 0.05);
+  border-radius: 8px;
+}
+
+body.notion .bottom-nav {
+  border-top: 1px solid #e9e9e7;
+  box-shadow: none;
+}
+
+/* ── Тема Бумага (notepad / vintage hand-drawn) ── */
+body.paper {
+  --bg: #ece5d8;
+  --card: #f5efe2;
+  --card-shadow: 3px 3px 0 #1a1a1a;
+  --accent: #1a1a1a;
+  --accent-light: rgba(26, 26, 26, 0.08);
+  --accent-glow: rgba(26, 26, 26, 0.18);
+  --text: #1a1a1a;
+  --text-muted: #6b6258;
+  --text-done: #b8ad9c;
+  --border: #1a1a1a;
+  --sub-bg: rgba(26, 26, 26, 0.04);
+  --handle: #8a7f70;
+  --delete: #8a7f70;
+  --nav-bg: #f5efe2;
+  --icon-btn-hover: rgba(26, 26, 26, 0.08);
+
+  background: #ece5d8;
+  font-family: 'Caveat', 'Inter', cursive;
+  font-size: 16px;
+}
+
+/* Шапка — бумажная плашка с тонкой линией */
+body.paper .topbar {
+  background: #f5efe2;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1.5px solid #1a1a1a;
+  box-shadow: none;
+}
+
+body.paper .app-icon-wrap {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 4px;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+}
+
+body.paper .app-title {
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+body.paper .icon-btn {
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+body.paper .icon-btn:hover {
+  background: rgba(26, 26, 26, 0.06);
+  color: #1a1a1a;
+}
+
+/* Карточки — бумажные листы с двойной рамкой и отрисованной "тенью" блоком */
+body.paper .card {
+  background: #f5efe2;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0 #1a1a1a;
+  padding: 16px 18px;
+  position: relative;
+}
+
+/* Декоративные звёздочки сверху первой карточки */
+body.paper .tab-content.active > .card:first-child::before {
+  content: '✦  ✦  ✦';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ece5d8;
+  padding: 0 10px;
+  font-size: 14px;
+  letter-spacing: 6px;
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+body.paper .section-label {
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Таймер — большие ручные цифры */
+body.paper .timer-display {
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  letter-spacing: 4px;
+  font-size: 56px;
+}
+
+body.paper .timer-subtitle {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+}
+
+/* Кнопка Старт — чёрный прямоугольник, без скруглений и теней */
+body.paper .btn-start-wide {
+  background: #1a1a1a;
+  color: #f5efe2;
+  border-radius: 4px;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  box-shadow: 3px 3px 0 #1a1a1a, inset 0 0 0 0 transparent;
+  border: 1.5px solid #1a1a1a;
+  transform: translate(-1.5px, -1.5px);
+}
+
+body.paper .btn-start-wide:hover {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 #1a1a1a;
+  filter: none;
+}
+
+body.paper .btn-secondary-round {
+  background: transparent;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  backdrop-filter: none;
+  opacity: 0.85;
+}
+
+body.paper .btn-secondary-round:hover {
+  background: #1a1a1a;
+  color: #f5efe2;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Поле новой задачи — рукописная подложка с подчёркиванием */
+body.paper #newTaskInput {
+  background: transparent;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 3px;
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  padding: 6px 12px;
+  color: #1a1a1a;
+}
+
+body.paper #newTaskInput:focus {
+  border-color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 2px 2px 0 #1a1a1a;
+}
+
+body.paper #newTaskInput::placeholder {
+  color: #8a7f70;
+  font-style: italic;
+}
+
+/* Бейдж счётчика и кнопка плюс — рукописные */
+body.paper .task-count-badge {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 3px;
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+}
+
+body.paper .btn-add-circle {
+  background: transparent;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  border-radius: 3px;
+  font-weight: 400;
+}
+
+body.paper .btn-add-circle:hover {
+  background: #1a1a1a;
+  color: #f5efe2;
+}
+
+/* Список задач — каждая строка имеет нижнее подчёркивание-линейку */
+body.paper #taskList > li {
+  border-bottom: 1px solid #1a1a1a;
+  border-radius: 0;
+  padding: 9px 4px 7px;
+}
+
+body.paper #taskList > li:last-child {
+  border-bottom: 1px solid #1a1a1a;
+}
+
+body.paper #taskList > li:hover {
+  background: rgba(26, 26, 26, 0.04);
+}
+
+/* Квадратные чекбоксы как на скриншоте */
+body.paper input[type="checkbox"] {
+  border-radius: 2px;
+  border: 1.5px solid #1a1a1a;
+  width: 16px;
+  height: 16px;
+}
+
+body.paper input[type="checkbox"]:checked {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+body.paper input[type="checkbox"]:checked::after {
+  content: '✓';
+  color: #f5efe2;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+body.paper .task-text {
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  line-height: 1.3;
+  color: #1a1a1a;
+}
+
+body.paper .done .task-text,
+body.paper .subtask-item.done .task-text {
+  text-decoration: line-through;
+  color: #b8ad9c;
+}
+
+body.paper .subtask-item .task-text {
+  font-size: 15px;
+}
+
+body.paper .btn-add-sub {
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  border-radius: 2px;
+  background: transparent;
+}
+
+body.paper .btn-add-sub:hover {
+  background: #1a1a1a;
+  color: #f5efe2;
+}
+
+body.paper .btn-delete:hover {
+  color: #1a1a1a;
+}
+
+/* Поле текущей задачи */
+body.paper .current-task-text {
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  font-style: italic;
+}
+
+body.paper .link-btn {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Нижняя навигация */
+body.paper .bottom-nav {
+  background: #f5efe2;
+  border-top: 1.5px solid #1a1a1a;
+  box-shadow: none;
+}
+
+body.paper .nav-btn {
+  color: #1a1a1a;
+  border-radius: 3px;
+}
+
+body.paper .nav-btn:hover,
+body.paper .nav-btn.active {
+  background: #1a1a1a;
+  color: #f5efe2;
+}
+
+/* Календарь */
+body.paper .cal-month-label {
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+body.paper .cal-cell {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  border-radius: 2px;
+}
+
+body.paper .cal-cell.today {
+  background: #1a1a1a;
+  color: #f5efe2;
+}
+
+body.paper .cal-cell:not(.empty):hover {
+  background: rgba(26, 26, 26, 0.1);
+  color: #1a1a1a;
+}
+
+body.paper .cal-cell.selected:not(.today) {
+  background: transparent;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+}
+
+body.paper .cal-cell.has-tasks::after {
+  background: #1a1a1a;
+}
+
+/* Импорт MD */
+body.paper .import-label {
+  background: transparent;
+  border: 1.5px dashed #1a1a1a;
+  color: #1a1a1a;
+  border-radius: 3px;
+  box-shadow: none;
+  font-family: 'Caveat', cursive;
+  font-size: 15px;
+}
+
+body.paper .import-label:hover {
+  background: rgba(26, 26, 26, 0.06);
+  border-style: solid;
+}
+
+/* Tabs кнопки таймера (Pomodoro / Short / Long) */
+body.paper .mode-btn {
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  color: #1a1a1a;
+  border-radius: 2px;
+}
+
+body.paper .mode-btn.active {
+  background: #1a1a1a;
+  color: #f5efe2;
+}
+
+body.paper .settings-panel {
+  background: transparent;
+  border: 1px dashed #1a1a1a;
+  border-radius: 3px;
+}
+
+body.paper .input-min-wrap {
+  background: transparent;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 2px;
+}
+
+body.paper .input-min-wrap input[type="number"] {
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  color: #1a1a1a;
+}
+
+/* Модалка task picker */
+body.paper .modal-sheet {
+  background: #f5efe2;
+  border: 1.5px solid #1a1a1a;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 -3px 0 #1a1a1a;
+}
+
+body.paper .modal-handle {
+  background: #1a1a1a;
+}
+
+body.paper .modal-title {
+  font-family: 'Permanent Marker', cursive;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+body.paper .modal-close {
+  background: transparent;
+  border: 1.5px solid #1a1a1a;
+  color: #1a1a1a;
+  border-radius: 2px;
+}
+
+body.paper .modal-close:hover {
+  background: #1a1a1a;
+  color: #f5efe2;
+}
+
+body.paper .picker-item-check {
+  border: 1.5px solid #1a1a1a;
+  border-radius: 2px;
+}
+
+body.paper .picker-item.selected .picker-item-check {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+body.paper .picker-item-text {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+}
+
+/* Скроллбары */
+body.paper .tab-content::-webkit-scrollbar-thumb,
+body.paper #taskList::-webkit-scrollbar-thumb,
+body.paper .picker-list::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 0;
+}
+
+/* ── Тема Кристалл ── */
+body.crystal {
+  --accent: hsl(var(--crystal-hue), 63%, 52%);
+  --accent-light: hsla(var(--crystal-hue), 63%, 52%, 0.12);
+  --accent-glow: hsla(var(--crystal-hue), 63%, 52%, 0.35);
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --text-done: #8fa3b8;
+  --border: rgba(0, 0, 0, 0.10);
+  --card: rgba(255, 255, 255, 0.48);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.14);
+  --sub-bg: rgba(255, 255, 255, 0.22);
+  --handle: rgba(30, 41, 59, 0.45);
+  --delete: rgba(30, 41, 59, 0.45);
+  --nav-bg: rgba(255, 255, 255, 0.48);
+  --icon-btn-hover: hsla(var(--crystal-hue), 63%, 52%, 0.10);
+
+  background: linear-gradient(175deg,
+      hsl(calc(var(--crystal-hue) + 40), 26%, 78%) 0%,
+      hsl(calc(var(--crystal-hue) + 28), 28%, 62%) 18%,
+      hsl(var(--crystal-hue), 30%, 40%) 38%,
+      hsl(var(--crystal-hue), 32%, 34%) 55%,
+      hsl(calc(var(--crystal-hue) + 26), 28%, 50%) 72%,
+      hsl(calc(var(--crystal-hue) + 36), 26%, 62%) 88%,
+      hsl(calc(var(--crystal-hue) + 40), 24%, 74%) 100%);
+}
+
+body.crystal .card,
+body.crystal .topbar,
+body.crystal .bottom-nav,
+body.crystal .modal-sheet,
+body.crystal .import-label {
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+}
+
+body.crystal #newTaskInput {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+body.crystal #newTaskInput:focus {
+  background: rgba(255, 255, 255, 0.32);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+body.crystal .import-label {
+  background: rgba(255, 255, 255, 0.32);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Body ── */
+body {
+  width: 360px;
+  min-height: 200px;
+  max-height: 600px;
+
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* 👇 ЧИСТЫЙ СВЕТЛЫЙ ФОН */
+  background: #f4f6fb;
+
+  color: var(--text);
+  font-size: 14px;
+
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  transition: all 0.3s;
+}
+
+/* ── Шапка ── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 16px 11px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.app-icon-wrap {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.app-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.2px;
+  transition: color 0.3s;
+}
+
+.topbar-right {
+  display: flex;
+  gap: 2px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 5px 7px;
+  border-radius: 8px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  background: var(--icon-btn-hover);
+  color: var(--accent);
+}
+
+/* ── Вкладки ── */
+.tab-content {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 12px 8px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tab-content.active {
+  display: flex;
+}
+
+.tab-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ── Карточки ── */
+.card {
+  background: rgba(255, 255, 255, 0.6);
+  /* прозрачность */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 14px 16px;
+  flex-shrink: 0;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.card-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card-label-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.section-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.3s;
+}
+
+.emoji-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ── Панель настроек таймера ── */
+.settings-panel {
+  display: none;
+  margin-bottom: 10px;
+  background: var(--sub-bg);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.settings-panel.open {
+  display: block;
+}
+
+.timer-mode-tabs {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+
+.mode-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  opacity: 0.5;
+  padding: 6px 2px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.mode-btn.active {
+  background: var(--accent);
+  color: #fff;
+  opacity: 1;
+}
+
+.mode-btn:not(.active):hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+/* ── Таймер ── */
+.timer-display {
+  font-size: 54px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text);
+  text-align: center;
+  margin: 4px 0 2px;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.4s;
+}
+
+body.timer-running .timer-display {
+  animation: timerPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+
+  0%,
+  100% {
+    color: var(--text);
+  }
+
+  50% {
+    color: var(--accent);
+  }
+}
+
+.timer-subtitle {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  transition: color 0.3s;
+}
+
+/* ── Кнопка Старт (широкая) ── */
+.btn-start-wide {
+  width: 100%;
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-shadow:
+    0 6px 25px var(--accent-glow),
+    inset 0 1px rgba(255, 255, 255, 0.4);
+  transition: all 0.2s;
+}
+
+.btn-start-wide:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px var(--accent-glow);
+  filter: brightness(1.05);
+}
+
+.btn-start-wide:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-start-wide:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Пауза и сброс ── */
+.timer-controls-secondary {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.btn-secondary-round {
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--text);
+  opacity: 0.55;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-secondary-round:hover {
+  opacity: 1;
+  transform: scale(1.08);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.btn-secondary-round:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+/* ── Текущая задача ── */
+.current-task-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  min-height: 20px;
+  transition: color 0.2s;
+}
+
+.current-task-text.has-task {
+  color: var(--text);
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.15s;
+}
+
+.link-btn:hover {
+  opacity: 0.65;
+}
+
+/* ── Карточка задач ── */
+.tasks-card {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-count-badge {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  min-width: 22px;
+  text-align: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn-add-circle {
+  background: var(--accent-light);
+  border: none;
+  color: var(--accent);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.15s;
+}
+
+.btn-add-circle:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── Поле добавления задачи ── */
+.add-task-row {
+  margin-bottom: 8px;
+}
+
+#newTaskInput {
+  width: 100%;
+  background: var(--sub-bg);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#newTaskInput::placeholder {
+  color: var(--text-muted);
+}
+
+#newTaskInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* ── Список задач ── */
+#taskList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+#taskList::-webkit-scrollbar {
+  width: 3px;
+}
+
+#taskList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#taskList::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+#taskList>li {
+  display: flex;
+  flex-direction: column;
+  padding: 7px 2px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+  border-radius: 8px;
+  cursor: default;
+}
+
+#taskList>li:last-child {
+  border-bottom: none;
+}
+
+#taskList>li:hover {
+  background: var(--sub-bg);
+}
+
+#taskList>li.dragging {
+  opacity: 0.4;
+}
+
+#taskList>li.drag-over {
+  background: var(--accent-light);
+}
+
+#taskList>li.task-new {
+  animation: taskSlideIn 0.28s ease forwards;
+}
+
+@keyframes taskSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Рукоять ── */
+.drag-handle {
+  color: var(--handle);
+  cursor: grab;
+  font-size: 14px;
+  flex-shrink: 0;
+  user-select: none;
+  transition: color 0.15s, opacity 0.15s;
+  opacity: 0;
+}
+
+#taskList>li:hover .drag-handle,
+.subtask-item:hover .drag-handle {
+  opacity: 1;
+}
+
+.drag-handle:hover {
+  color: var(--text-muted);
+}
+
+/* ── Круглый чекбокс ── */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+input[type="checkbox"]:hover {
+  border-color: var(--accent);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  animation: checkPop 0.25s ease;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 10px;
+  line-height: 18px;
+  text-align: center;
+  width: 100%;
+}
+
+@keyframes checkPop {
+  0% {
+    transform: scale(0.75);
+  }
+
+  60% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.task-text {
+  flex: 1;
+  word-break: break-word;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  cursor: text;
+  font-family: inherit;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+
+.task-text[contenteditable="true"]:focus {
+  border-bottom: 1px solid var(--accent);
+}
+
+.done .task-text {
+  text-decoration: line-through;
+  color: var(--text-done);
+}
+
+/* ── Кнопки строки задачи ── */
+.btn-add-sub {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  opacity: 0;
+}
+
+#taskList>li:hover .btn-add-sub {
+  opacity: 1;
+}
+
+.btn-add-sub:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-delete {
+  background: transparent;
+  border: none;
+  color: var(--delete);
+  cursor: pointer;
+  font-size: 16px;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.15s, transform 0.15s;
+  opacity: 0;
+}
+
+#taskList>li:hover .btn-delete,
+.subtask-item:hover .btn-delete {
+  opacity: 1;
+}
+
+.btn-delete:hover {
+  color: #f43f5e;
+  transform: scale(1.15);
+}
+
+.collapse-btn {
+  background: transparent;
+  border: none;
+  color: var(--handle);
+  cursor: pointer;
+  font-size: 8px;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.collapse-btn:hover {
+  color: var(--text-muted);
+}
+
+/* ── Подпункты ── */
+.subtask-list {
+  list-style: none;
+  margin-top: 4px;
+  margin-left: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 4px;
+  border-radius: 7px;
+  transition: background 0.15s;
+}
+
+.subtask-item:hover {
+  background: var(--sub-bg);
+}
+
+.subtask-item .task-text {
+  font-size: 12px;
+}
+
+.subtask-item .drag-handle {
+  font-size: 12px;
+}
+
+.subtask-item.dragging {
+  opacity: 0.4;
+}
+
+.subtask-item.drag-over {
+  background: var(--accent-light);
+}
+
+.subtask-item.done .task-text {
+  text-decoration: line-through;
+  color: var(--text-done);
+}
+
+.subtask-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.subtask-left .task-text {
+  flex: 1;
+}
+
+/* ── Импорт ── */
+.import-row {
+  flex-shrink: 0;
+}
+
+.import-label {
+  background: var(--card);
+  border: 1.5px dashed var(--border);
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+  display: block;
+  transition: all 0.2s;
+  box-shadow: var(--card-shadow);
+}
+
+.import-label:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#mdFileInput {
+  display: none;
+}
+
+/* ── Placeholder-вкладки ── */
+.placeholder-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 70px 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.placeholder-icon {
+  font-size: 40px;
+}
+
+/* ── Нижняя навигация ── */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0 13px;
+  background: var(--nav-bg);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 7px 22px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.nav-btn:hover {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.nav-btn.active {
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+/* ── Custom duration inputs ── */
+.timer-custom-inputs {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.custom-input-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  cursor: default;
+}
+
+.input-min-wrap {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 7px;
+  transition: border-color 0.2s;
+}
+
+.input-min-wrap:focus-within {
+  border-color: var(--accent);
+}
+
+.input-min-wrap input[type="number"] {
+  width: 32px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  outline: none;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.input-min-wrap input[type="number"]::-webkit-outer-spin-button,
+.input-min-wrap input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.min-unit {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── Calendar ── */
+.calendar-card {
+  padding: 14px;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cal-nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 22px;
+  padding: 2px 10px;
+  border-radius: 8px;
+  line-height: 1;
+  transition: all 0.15s;
+}
+
+.cal-nav-btn:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.cal-month-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+
+.cal-weekdays span {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 3px 0;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  border-radius: 8px;
+  color: var(--text);
+  transition: all 0.15s;
+  position: relative;
+}
+
+.cal-cell.selected:not(.today) {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cal-cell.has-tasks::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cal-cell.today.has-tasks::after {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.cal-cell:not(.empty) {
+  cursor: pointer;
+}
+
+.cal-cell:not(.empty):hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.cal-cell.today {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.cal-cell.empty {
+  cursor: default;
+}
+
+/* ── Task picker modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  align-items: flex-end;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-sheet {
+  width: 100%;
+  background: var(--card);
+  border-radius: 20px 20px 0 0;
+  padding: 10px 0 16px;
+  max-height: 72%;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.28s cubic-bezier(0.34, 1.1, 0.64, 1);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.modal-overlay.open .modal-sheet {
+  transform: translateY(0);
+}
+
+.modal-handle {
+  width: 36px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto 12px;
+  flex-shrink: 0;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.modal-close {
+  background: var(--sub-bg);
+  border: none;
+  color: var(--text-muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 17px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.modal-close:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.picker-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  padding: 6px 0;
+}
+
+.picker-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.picker-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.picker-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.picker-item:hover {
+  background: var(--sub-bg);
+}
+
+.picker-item.selected {
+  background: var(--accent-light);
+}
+
+.picker-item-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: transparent;
+  transition: all 0.15s;
+}
+
+.picker-item.selected .picker-item-check {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.picker-item-text {
+  font-size: 13px;
+  color: var(--text);
+  flex: 1;
+  line-height: 1.4;
+}
+
+.picker-item.done-task .picker-item-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.picker-no-tasks {
+  padding: 28px 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
