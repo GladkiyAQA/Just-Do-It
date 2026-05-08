@@ -319,7 +319,7 @@ export default function Timer({ compact = false }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
-            className="absolute left-3 right-3 mt-1.5 z-10 glass rounded-xl py-1 max-h-64 overflow-y-auto glass-scroll origin-top"
+            className="task-picker-pop absolute left-3 right-3 mt-1.5 z-10 glass rounded-xl py-1 max-h-64 overflow-y-auto glass-scroll origin-top"
           >
             {todayTasks.length === 0 ? (
               <div className="px-3 py-2 text-xs text-slate-600">

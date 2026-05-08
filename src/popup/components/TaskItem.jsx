@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore, TASK_TEXT_LIMIT } from '../../lib/store.js';
 
@@ -431,6 +432,7 @@ export default function TaskItem({
         </ul>
       )}
 
+      {createPortal(
       <AnimatePresence>
       {menu && (
         <motion.div
@@ -446,7 +448,7 @@ export default function TaskItem({
             zIndex: 50,
             transformOrigin: 'top left',
           }}
-          className="glass rounded-xl py-1 min-w-[200px] shadow-lg"
+          className="task-picker-pop glass rounded-xl py-1 min-w-[200px] shadow-lg"
         >
           {!editingBudget ? (
             <>
@@ -506,7 +508,9 @@ export default function TaskItem({
           )}
         </motion.div>
       )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
     </div>
   );
 }

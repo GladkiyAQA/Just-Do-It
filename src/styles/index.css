@@ -104,6 +104,13 @@ body.theme-crystal .glass-soft {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
+/* Crystal: backdrop-filter on .glass creates a stacking context per card,
+   so popovers that overflow their parent (Timer's task picker dropdown)
+   get covered by later sibling cards. Raise the host card above siblings. */
+body.theme-crystal .glass[data-section="active-task"] {
+  position: relative;
+  z-index: 30;
+}
 body.theme-crystal .accent-bg       { background: hsl(var(--c-hue) 55% 48%); }
 body.theme-crystal .accent-text     { color: hsl(var(--c-hue) 55% 32%); }
 body.theme-crystal .accent-soft-bg  { background: hsl(var(--c-hue) 55% 48% / 0.14); }
@@ -536,3 +543,23 @@ input[type="checkbox"].crystal-check:checked::after {
   to { opacity: 1; transform: translateY(0); }
 }
 .task-new { animation: slideIn 0.28s ease forwards; }
+
+/* Popovers (task picker, task context menu) need an opaque-ish background
+   so options stay legible when they overflow on top of other cards. */
+body.theme-crystal .task-picker-pop {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(22px) saturate(1.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.22);
+}
+body.theme-notion .task-picker-pop {
+  background: #ffffff;
+  border: 1px solid #e6e0d2;
+  box-shadow: 0 14px 36px rgba(80, 60, 30, 0.16);
+}
+body.theme-dark .task-picker-pop {
+  background: #1c1c22;
+  border: 1px solid #2f2f38;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+}
